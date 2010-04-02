@@ -27,9 +27,10 @@ module Geokit
     def store_ip_location
       session[:geo_location] ||= retrieve_location_from_cookie_or_service
       geo_location = session[:geo_location]
+      return unless geo_location
       geo_location = geo_location.to_hash unless geo_location.is_a?(Hash)
-      cookies[:geo_location] = { :value => geo_location.to_yaml, :expires => 30.days.from_now } if geo_location
-    end    
+      cookies[:geo_location] = { :value => geo_location.to_yaml, :expires => 30.days.from_now }
+    end
     
     # Uses the stored location value from the cookie if it exists.  If
     # no cookie exists, calls out to the web service to get the location. 
